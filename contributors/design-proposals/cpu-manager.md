@@ -263,14 +263,16 @@ func (p *staticPolicy) UnregisterContainer(s State, containerID string) error {
        cpuset for all containers running in the shared pool.
 
 1. _The shared pool becomes empty._
-    1. The CPU manager adds a node condition with effect NoSchedule,
-       NoExecute that prevents BestEffort and Burstable QoS class pods from
-       running on the node. BestEffort and Burstable QoS class pods are
-       evicted from the node.
+    1. The CPU manager sets a `CPUPressure` node condition to `true`
+       that prevents BestEffort and Burstable QoS class pods with no
+       CPU resource request from being scheduled on the node. Already
+       running BestEffort and Burstable QoS class pods without a CPU
+       resource request are evicted from the node.
 
 1. _The shared pool becomes nonempty._
-    1. The CPU manager removes the node condition with effect NoSchedule,
-       NoExecute for BestEffort and Burstable QoS class pods.
+    1. The CPU manager sets a `CPUPressure` node condition to `false`
+       that allows BestEffort and Burstable QoS class pods with no CPU
+       resource request to be scheduled on the node.
 
 #### Policy 3: "dynamic" cpuset control
 
