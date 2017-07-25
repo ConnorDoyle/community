@@ -142,6 +142,10 @@ configuration. The three policies are **none**, **static** and **dynamic**.
 
 The active CPU manager policy is set through a new Kubelet
 configuration value `--cpu-manager-policy`. The default value is `none`.
+This policy will be reported in the Node resource as a label with key
+`alpha.kubernetes.io/cpu-policy`.  This allows users with with a policy
+preference to use a node selector to ensure the pod lands on a node with a
+particular cpu manager policy enabled.
 
 The number of CPUs that pods may run on can be implicitly controlled using the
 existing node-allocatable configuration settings. See the [node allocatable
