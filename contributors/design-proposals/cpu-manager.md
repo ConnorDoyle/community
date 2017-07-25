@@ -273,6 +273,13 @@ func (p *staticPolicy) UnregisterContainer(s State, containerID string) error {
        running BestEffort and Burstable QoS class pods without a CPU
        resource request are evicted from the node.
 
+       _NOTE:_ The decision to allow the shared pool to completely empty
+       is driven by a desire to keep the scheduler accounting simple.  If a
+       `--cpu-policy-static-min-shared-cpus` flag were to exist, there is
+       no simple way to convey that information to the scheduler.  The
+       scheduler would then need to know that some portion of the CPU
+       Allocatable is "special", for use only by non-exlusive containers.
+
 1. _The shared pool becomes nonempty._
     1. The CPU manager sets a `CPUPressure` node condition to `false`
        that allows BestEffort and Burstable QoS class pods with no CPU
