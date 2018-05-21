@@ -261,6 +261,8 @@ _NUMA Manager fetches affinity from hint providers._
 * Alpha-level documentation.
 * Node e2e tests.
 * User feedback.
+* cAdvisor discovers huge pages allocated per Numa Node
+* NUMA Manager takes huge page availability into account when calculating NUMA hints
 
 ## GA (stable)
 
